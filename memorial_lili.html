@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorial - Recordações QR</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Elemento de Áudio Local -->
+    <audio id="musica-fundo" src="musica.mp3" loop></audio>
+
+    <!-- 1. TELA DE ABERTURA -->
+    <div id="tela-abertura">
+        <div class="intro-content">
+            <div class="avatar-container-cms principal-destaque-moldura">
+                <img id="img-intro" src="foto-homenageado.jpg" alt="Foto do Homenageado" class="foto-intro" onerror="this.src='https://via.placeholder.com/180'">
+                <input type="file" id="upload-foto-intro" class="input-upload-oculto" accept="image/*" onchange="atualizarFotoUpload(this, 'img-intro', 'fotoPrincipal')">
+                <label id="lbl-intro-foto" for="upload-foto-intro" class="btn-trocar-foto-cms hidden"><i class="fas fa-camera"></i> Alterar</label>
+            </div>
+            <h1 id="txt-nome-intro">Nome do Homenageado</h1>
+            <p class="apelido" id="txt-apelido-intro">"Apelido da Pessoa"</p>
+            <p class="datas" id="txt-datas-intro">00/00/1950 &bull; 00/00/2026</p>
+            <button id="btn-entrar" onclick="entrarNoSite()">Entrar no Site Póstumo</button>
+        </div>
+    </div>
+
+    <!-- 2. SITE PRINCIPAL -->
+    <div id="site-principal" class="hidden">
+        
+        <!-- Cabeçalho Fixo -->
+        <header>
+            <div class="logo-empresa">
+                <i class="fas fa-qrcode"></i> <span>Recordações QR</span>
+            </div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="javascript:void(0)" onclick="alternarSecaoCms('inicio')">Início</a></li>
+                    <li><a href="javascript:void(0)" onclick="alternarSecaoCms('familia')">Família</a></li>
+                    <li><a href="javascript:void(0)" onclick="alternarSecaoCms('biografia')">Biografia</a></li>
+                    <li><a href="javascript:void(0)" onclick="alternarSecaoCms('galeria')">Galeria</a></li>
+                    <li><a href="javascript:void(0)" onclick="alternarSecaoCms('mensagens')">Mensagens</a></li>
+                    <li><a href="javascript:void(0)" onclick="alternarSecaoCms('vela')">Velas</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- BARRA DO PAINEL ADMINISTRATIVO -->
+        <div id="barra-editor-adm" class="hidden">
+            <p><i class="fas fa-user-shield"></i> <strong>Modo Editor Ativo</strong> | Altere as fotos, árvore e textos diretamente na tela.</p>
+            <button onclick="salvarAlteracoesGlobais()" class="btn-salvar-cms"><i class="fas fa-save"></i> Salvar Todas as Modificações</button>
+        </div>
+
+        <!-- SEÇÃO: INÍCIO -->
+        <section id="inicio" class="section-content">
+            <div class="perfil-topo">
+                <div class="avatar-container-cms perfil-principal-avatar">
+                    <img id="img-perfil" src="foto-homenageado.jpg" alt="Foto" class="foto-perfil" onerror="this.src='https://via.placeholder.com/160'">
+                    <input type="file" id="upload-foto-perfil" class="input-upload-oculto" accept="image/*" onchange="atualizarFotoUpload(this, 'img-perfil', 'fotoPrincipal')">
+                    <label id="lbl-perfil-foto" for="upload-foto-perfil" class="btn-trocar-foto-cms hidden"><i class="fas fa-camera"></i> Trocar Foto</label>
+                </div>
+                
+                <div class="inputs-bloco-cms">
+                    <label class="lbl-cms-admin hidden">Nome Completo:</label>
+                    <input type="text" id="inp-nome" class="input-cms-campo" value="Nome do Homenageado" oninput="sincronizarTextosIntro()">
+                    
+                    <label class="lbl-cms-admin hidden">Apelido:</label>
+                    <input type="text" id="inp-apelido" class="input-cms-campo apelido-estilo" value='"Apelido da Pessoa"' oninput="sincronizarTextosIntro()">
+                    
+                    <label class="lbl-cms-admin hidden">Datas (Nasc • Falec):</label>
+                    <input type="text" id="inp-datas" class="input-cms-campo datas-estilo" value="00/00/1950 • 00/00/2026" oninput="sincronizarTextosIntro()">
+                </div>
+            </div>
+
+            <div class="info-locais">
+                <div class="local-card">
+                    <i class="fas fa-map-marker-alt icone-mapa"></i>
+                    <div style="width: 100%;">
+                        <h3>Cidade Natal</h3>
+                        <input type="text" id="inp-cidade-natal" class="input-cms-campo" value="Lajinha de Pancas, Espírito Santo">
+                    </div>
+                </div>
+                <div class="local-card">
+                    <i class="fas fa-home icone-mapa"></i>
+                    <div style="width: 100%;">
+                        <h3>Última Residência</h3>
+                        <input type="text" id="inp-ultima-residencia" class="input-cms-campo" value="Vitória, Espírito Santo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="sepultamento-container">
+                <h3><i class="fas fa-monument"></i> Informações de Sepultamento</h3>
+                <div class="grid-sepultamento-cms">
+                    <p><strong>Município:</strong> <input type="text" id="inp-sep-municipio" class="input-cms-campo inline-input" value="Vitória, Espírito Santo"></p>
+                    <p><strong>Local:</strong> <input type="text" id="inp-sep-local" class="input-cms-campo inline-input" value="Cemitério Municipal Boa Vista"></p>
+                    <p><strong>Endereço:</strong> <input type="text" id="inp-sep-endereco" class="input-cms-campo inline-input" value="Avenida Adolfo Casoli, 318, Maruípe, Vitória - ES"></p>
+                    <p><strong>Identificação:</strong> <input type="text" id="inp-sep-identificacao" class="input-cms-campo inline-input" value="Gaveta 217"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: FAMÍLIA -->
+        <section id="familia" class="section-content">
+            <h2>Família e Legado</h2>
+            
+            <div id="painel-adicionar-familiar" class="hidden">
+                <h4><i class="fas fa-user-plus"></i> Inserir Novo Membro na Árvore</h4>
+                <div class="form-add-familiar">
+                    <input type="text" id="add-fam-nome" placeholder="Nome Completo">
+                    <select id="add-fam-nivel">
+                        <option value="pais">Pais</option>
+                        <option value="conjuge">Cônjuge</option>
+                        <option value="filhos">Filhos / Irmãos</option>
+                        <option value="genros">Genros / Noras</option>
+                        <option value="netos">Netos / Bisnetos</option>
+                    </select>
+                    <input type="text" id="add-fam-grau" placeholder="Parentesco (Ex: Filho, Nora, Neto)">
+                    <label class="btn-foto-add">
+                        <i class="fas fa-image"></i> Foto
+                        <input type="file" id="add-fam-foto" accept="image/*" onchange="processarFotoFamiliarTemporaria(this)">
+                    </label>
+                    <button type="button" onclick="adicionarFamiliarAoLegado()">Adicionar na Árvore</button>
+                </div>
+            </div>
+
+            <div class="arvore-bg-imagem">
+                <div class="arvore-estrutura">
+                    <div class="nivel-container-titulo">Pais</div>
+                    <div class="nivel-arvore" id="container-nivel-pais"></div>
+                    
+                    <div class="nivel-container-titulo">Cônjuge</div>
+                    <div class="nivel-arvore" id="container-nivel-conjuge"></div>
+                    
+                    <div class="nivel-container-titulo">Filhos e Irmãos</div>
+                    <div class="nivel-arvore" id="container-nivel-filhos"></div>
+
+                    <div class="nivel-container-titulo">Genros e Noras</div>
+                    <div class="nivel-arvore" id="container-nivel-genros"></div>
+                    
+                    <div class="nivel-container-titulo">Netos e Bisnetos</div>
+                    <div class="nivel-arvore" id="container-nivel-netos"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: BIOGRAFIA -->
+        <section id="biografia" class="section-content">
+            <h2 class="titulo-biografia-elegante">Biografia</h2>
+            <div class="bio-container">
+                <div class="avatar-container-cms">
+                    <img id="img-bio" src="foto-homenageado-bio.jpg" alt="Foto Biografia" class="foto-bio" onerror="this.src='https://via.placeholder.com/200'">
+                    <input type="file" id="upload-foto-bio" class="input-upload-oculto" accept="image/*" onchange="alwaysUpdateFotoUpload(this, 'img-bio', 'fotoBiografia')">
+                    <label id="lbl-bio-foto" for="upload-foto-bio" class="btn-trocar-foto-cms hidden"><i class="fas fa-camera"></i> Mudar Foto</label>
+                </div>
+                <div style="flex: 1; width: 100%;">
+                    <label class="lbl-cms-admin hidden">Texto da História / Biografia:</label>
+                    <textarea id="txt-biografia" class="textarea-cms-campo text-ajustavel-dinamico" rows="1" oninput="ajustarAlturaTextoAuto(this)">Aqui entra a história cronológica...</textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: GALERIA -->
+        <section id="galeria" class="section-content">
+            <h2>Galeria de Recordações</h2>
+            
+            <div id="painel-gerenciar-galeria" class="hidden">
+                <h4><i class="fas fa-images"></i> Adicionar Foto à Galeria</h4>
+                <div class="form-add-galeria">
+                    <label class="btn-foto-add">
+                        <i class="fas fa-cloud-upload-alt"></i> Escolher Imagem
+                        <input type="file" id="upload-nova-foto-galeria" accept="image/*" onchange="adicionarFotoGaleria(this)">
+                    </label>
+                    <span id="txt-status-galeria" style="font-size:0.85rem; color:#666;">Selecione um arquivo para carregar direto no álbum.</span>
+                </div>
+            </div>
+
+            <!-- Carrossel de Slide Contínuo Infinito -->
+            <div class="galeria-carrossel-wrapper">
+                <div class="galeria-track-rolagem" id="galeria-fotos-container"></div>
+            </div>
+            
+            <div id="container-link-video" class="hidden">
+                <label><strong>ID do Vídeo do YouTube:</strong></label>
+                <input type="text" id="input-id-youtube" value="dQw4w9WgXcQ" oninput="atualizarIframeVideo(this.value)" class="input-cms-campo">
+            </div>
+            <div class="video-container">
+                <iframe id="video-iframe-youtube" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: MENSAGENS -->
+        <section id="mensagens" class="section-content">
+            <h2>Mensagens de Carinho</h2>
+            <div class="formulario-box">
+                <h3>Deixe sua Homenagem</h3>
+                <form id="form-mensagem">
+                    <input type="text" id="msg-nome" placeholder="Seu Nome Completo" required>
+                    <input type="text" id="msg-parentesco" placeholder="O que você era do falecido?" required>
+                    <textarea id="msg-texto" placeholder="Escreva sua mensagem com carinho..." required></textarea>
+                    <button type="submit" class="btn-enviar">Enviar para Aprovação</button>
+                </form>
+            </div>
+
+            <div id="painel-moderacao" class="hidden">
+                <h3><i class="fas fa-user-shield"></i> Homenagens Aguardando Aprovação</h3>
+                <div id="lista-pendentes"></div>
+            </div>
+
+            <h3>Homenagens Publicadas</h3>
+            <div id="mural-mensagens" style="margin-top: 15px;"></div>
+        </section>
+
+        <!-- SEÇÃO: VELAS -->
+        <section id="vela" class="section-content section-vela">
+            <h2>Memorial de Orações e Luz</h2>
+            <p class="subtitulo-vela">Deixe uma luz acesa em memória deste ente querido.</p>
+            <div class="vela-input-box">
+                <input type="text" id="nome-vela" placeholder="Seu Nome">
+                <button type="button" onclick="solicitarNovaVela()">Acender uma Vela</button>
+            </div>
+            
+            <!-- Cenário de Altar Tridimensional Absoluto Sem Rolagens -->
+            <div class="santuario-velas" id="altar-santuario-container">
+                
+                <!-- Elemento Central de Destaque Fixo na Frente -->
+                <div class="vela-box-central-fixa" title="Homenagem eterna de Recordações QR">
+                    <div class="vela-realista principal"><div class="chama-realista"></div></div>
+                    <p class="rotulo-vela-fixo">Recordações QR</p>
+                </div>
+
+                <!-- Camada Dinâmica onde as velas menores entram de trás para frente -->
+                <div id="camada-velas-dinamicas"></div>
+                
+            </div>
+        </section>
+
+        <!-- RODAPÉ -->
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2026 Recordações QR. Todos os direitos reservados.</p>
+                <div class="adm-wrapper">
+                    <button id="btn-adm-gatilho" onclick="toggleFormLogin()"><i class="fas fa-lock"></i> Área do Administrator</button>
+                    
+                    <div id="box-login-adm" class="hidden">
+                        <h4>Acesso Administrativo</h4>
+                        <input type="text" id="adm-user" placeholder="Usuário">
+                        <input type="password" id="adm-pass" placeholder="Senha">
+                        <div class="box-login-botoes">
+                            <button onclick="realizarLoginAdm()" class="btn-logar">Entrar</button>
+                            <button onclick="toggleFormLogin()" class="btn-cancelar">Fechar</button>
+                        </div>
+                    </div>
+                    <button id="btn-adm-sair" class="hidden" onclick="realizarLogoutAdm()"><i class="fas fa-sign-out-alt"></i> Sair do Painel ADM</button>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+<script type="module">
+  // Importa as funções necessárias do Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getDatabase, ref, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+  // Configuração do seu app (baseada no seu projeto atual)
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPBtqlC_bG_WyWZ1Tffz2oLEEF0J9-2D4",
+    authDomain: "memorial-27e44.firebaseapp.com",
+    databaseURL: "https://memorial-27e44-default-rtdb.firebaseio.com",
+    projectId: "memorial-27e44",
+    storageBucket: "memorial-27e44.firebasestorage.app",
+    messagingSenderId: "516557200193",
+    appId: "1:516557200193:web:0a6b664bd265e2d9275fc0"
+  };
+
+  // Inicializa o Firebase e o Realtime Database
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+  // Compartilha as funções com o seu arquivo script.js
+  window.database = database;
+  window.dbRef = ref;
+  window.dbSet = set;
+  window.dbPush = push;
+  window.dbOnValue = onValue;
+  window.dbRemove = remove;
+</script>
+
+    <script src="script.js"></script>
+</body>
+</html>

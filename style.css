@@ -1,0 +1,344 @@
+/* Globais e Tipografia */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', serif; scroll-behavior: smooth; }
+body { background-color: #f7f5f2; color: #2c2c2c; line-height: 1.7; }
+.hidden { display: none !important; }
+
+/* TELA DE ABERTURA - FOCO CENTRALIZADO E FUNDO PRETO SÓLIDO */
+#tela-abertura {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #000000 !important; color: #fff;
+    display: flex; justify-content: center; align-items: center;
+    text-align: center; z-index: 9999; transition: opacity 0.6s ease;
+}
+.intro-content {
+    max-width: 600px; padding: 30px; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+}
+.principal-destaque-moldura {
+    margin: 0 auto 25px auto; display: inline-block;
+}
+.foto-intro {
+    width: 180px; height: 180px; border-radius: 50%; object-fit: cover;
+    border: 4px solid #dfb76c; filter: drop-shadow(0 0 15px rgba(223, 183, 108, 0.4));
+    background-color: #222; display: block;
+}
+
+/* SISTEMA DE ABAS (SPA) */
+#site-principal .section-content {
+    display: none !important;
+}
+#site-principal .section-content.secao-ativa {
+    display: block !important;
+    animation: esmaecerCms 0.4s ease-in-out;
+}
+.menu a.link-ativo {
+    color: #dfb76c !important;
+    font-weight: bold;
+    border-bottom: 2px solid #dfb76c;
+    padding-bottom: 4px;
+}
+
+@keyframes esmaecerCms {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* BARRA FIXA DO EDITOR DO TOPO */
+#barra-editor-adm {
+    position: fixed; top: 0; left: 0; width: 100%; background: #962d2d; color: #fff;
+    padding: 12px 5%; z-index: 5000; display: flex; justify-content: space-between;
+    align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 0.95rem;
+}
+body:has(#barra-editor-adm:not(.hidden)) header { top: 48px; } 
+.btn-salvar-cms { background: #28a745; color: #fff; border: none; padding: 8px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+
+/* COMPONENTES CMS EM MODO ADM */
+.input-cms-campo { width: 100%; background: transparent; border: none; color: #2c2c2c; font-size: 1rem; font-family: inherit; padding: 4px 0; }
+.textarea-cms-campo { width: 100%; background: transparent; border: none; color: #2c2c2c; font-size: 1.05rem; font-family: inherit; line-height: 1.7; resize: none; overflow: hidden; }
+.inline-input { display: inline-block; width: auto; min-width: 200px; padding: 0 5px; }
+
+.modo-admin-ativo .input-cms-campo, 
+.modo-admin-ativo .textarea-cms-campo {
+    border-bottom: 1px dashed #962d2d !important; background-color: #fff9f9 !important; padding: 6px 8px !important; border-radius: 4px;
+}
+.lbl-cms-admin { display: block; font-size: 0.8rem; color: #962d2d; font-weight: bold; margin-top: 10px; text-transform: uppercase; }
+
+.avatar-container-cms { position: relative; display: inline-block; }
+.input-upload-oculto { display: none; }
+.btn-trocar-foto-cms {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(150, 45, 45, 0.95); color: white; padding: 5px 14px;
+    border-radius: 20px; font-size: 0.75rem; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 10;
+}
+
+/* ESTILIZAÇÃO ELEGANTE DA BIOGRAFIA */
+.titulo-biografia-elegante {
+    text-align: center;
+    margin-bottom: 35px;
+    color: #1a1a1a;
+    font-family: 'Cinzel', 'Playfair Display', 'Didot', 'Georgia', serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #dfb76c;
+    padding-bottom: 12px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ÁRVORE GENEALÓGICA */
+.arvore-bg-imagem {
+    position: relative; padding: 50px 20px; border-radius: 12px;
+    background-image: url('arvore.png');
+    background-size: contain; background-position: center;
+    background-repeat: no-repeat; background-color: #faf6f0;
+    border: 1px solid #eae2d5; margin-top: 20px;
+}
+.arvore-estrutura { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 5; }
+.nivel-container-titulo { text-align: center; font-size: 0.85rem; text-transform: uppercase; color: #91723b; letter-spacing: 2px; font-weight: bold; margin-top: 15px; }
+.nivel-arvore { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; min-height: 90px; align-items: center; padding: 10px; }
+
+.parente-item { 
+    background: rgba(255, 255, 255, 0.94); border: 1px solid #dfdcd6; padding: 12px 8px; 
+    text-align: center; border-radius: 8px; display: flex; flex-direction: column; 
+    align-items: center; gap: 6px; width: 135px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); position: relative;
+}
+.foto-parente { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid #eae6e1; background-color: #f5f5f5; }
+.parente-nome { font-size: 0.8rem; color: #1a1a1a; font-weight: bold; line-height: 1.3; }
+.parente-grau { display: block; font-size: 0.75rem; color: #b59049; font-style: italic; }
+.btn-deletar-familiar { position: absolute; top: -5px; right: -5px; background: #dc3545; color: white; border: none; width: 22px; height: 22px; border-radius: 50%; font-size: 0.7rem; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+
+#painel-adicionar-familiar, #painel-gerenciar-galeria { background: #fdfaf4; border: 1px dashed #dfb76c; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+.form-add-familiar, .form-add-galeria { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.form-add-familiar input, .form-add-familiar select { padding: 8px 12px; border: 1px solid #dcd7cf; border-radius: 4px; }
+.form-add-familiar button { background: #962d2d; color: white; border: none; padding: 9px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.btn-foto-add { background: #e0dbd3; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
+.btn-foto-add input { display: none; }
+
+/* GALERIA DE FOTOS - ESTILO CARROSSEL CONTINUO INFINITO E MAIOR */
+.galeria-carrossel-wrapper {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+    background: #faf8f5;
+    border-radius: 8px;
+    margin-bottom: 35px;
+    position: relative;
+}
+.galeria-track-rolagem {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scrollInfinitoLateral 35s linear infinite;
+}
+.galeria-carrossel-wrapper:hover .galeria-track-rolagem {
+    animation-play-state: paused;
+}
+.galeria-item-box {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 240px; 
+    height: 180px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 1px solid #eae2d5;
+    flex-shrink: 0;
+}
+.galeria-item-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.galeria-item-box:hover img { transform: scale(1.04); }
+.btn-deletar-foto-galeria { position: absolute; top: 8px; right: 8px; background: rgba(220, 53, 69, 0.95); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; font-weight: bold; z-index: 15; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+@keyframes scrollInfinitoLateral {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+}
+
+/* Estrutura Base */
+header { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; box-shadow: 0 2px 15px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 100; }
+.logo-empresa { font-size: 1.1rem; font-weight: bold; }
+.logo-empresa span { color: #dfb76c; }
+.menu { display: flex; list-style: none; gap: 20px; }
+.menu a { text-decoration: none; color: #555; font-size: 0.95rem; }
+#btn-entrar { background: transparent; color: #dfb76c; border: 2px solid #dfb76c; padding: 12px 35px; border-radius: 30px; cursor: pointer; font-size: 1rem; margin-top: 25px; transition: 0.2s; }
+#btn-entrar:hover { background: #dfb76c; color: #000; }
+
+.section-content { max-width: 850px; margin: 50px auto; padding: 40px; background: #fff; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.02); }
+h2 { text-align: center; margin-bottom: 30px; color: #1a1a1a; }
+.foto-perfil { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 3px solid #dfb76c; margin-bottom: 20px; }
+.perfil-topo { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 30px; }
+#inp-nome { font-size: 2rem; color: #1a1a1a; text-align: center; }
+.apelido-estilo { font-style: italic; color: #777; font-size: 1.2rem; text-align: center; }
+.datas-estilo { color: #dfb76c; font-size: 1.05rem; text-align: center; margin-top: 5px; }
+
+.info-locais { display: flex; gap: 20px; margin-bottom: 30px; }
+.local-card { flex: 1; display: flex; align-items: center; gap: 15px; padding: 20px; background: #faf8f5; border-left: 3px solid #dfb76c; border-radius: 4px; }
+.icone-mapa { font-size: 1.4rem; color: #dfb76c; }
+.sepultamento-container { background: #fdfcfb; padding: 25px; border: 1px solid #eae6e1; border-radius: 6px; }
+.bio-container { display: flex; gap: 30px; align-items: flex-start; }
+.foto-bio { width: 200px; height: auto; border-radius: 6px; }
+
+#container-link-video { margin-bottom:15px; background:#f4f0ea; padding:15px; border-radius:6px; width: 100%; }
+.video-container { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 8px; overflow: hidden; margin-top: 15px; }
+.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+/* Velas e Formulários */
+.formulario-box { background: #faf8f5; padding: 30px; border-radius: 8px; margin-bottom: 30px; }
+#form-mensagem input, #form-mensagem textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #dcd7cf; border-radius: 4px; }
+.btn-enviar { width: 100%; padding: 14px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+.mural-card { display: flex; gap: 20px; background: #fff; padding: 20px; border-radius: 6px; border: 1px solid #eae6e1; margin-bottom: 15px; align-items: center; }
+.foto-msg { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+
+#painel-moderacao { background: #fff5e6; border: 2px dashed #dfb76c; padding: 25px; border-radius: 8px; margin-bottom: 35px; }
+.botoes-moderacao { display: flex; gap: 10px; margin-left: auto; }
+.btn-aprovar { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+.btn-reprovar { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+
+/* ==========================================================================
+   NOVO ALTAR TRIDIMENSIONAL FLUIDO (SEM ROLAGENS, SOBREPOSIÇÃO REALISTA)
+   ========================================================================== */
+.section-vela { 
+    background-color: #050505 !important; 
+    color: #f5f5f5; 
+    border: 1px solid #111; 
+}
+.section-vela h2 { color: #fff; }
+.subtitulo-vela { text-align: center; color: #888; font-size: 0.95rem; margin-bottom: 25px; }
+
+.vela-input-box { text-align: center; margin-bottom: 25px; position: relative; z-index: 100; }
+.vela-input-box input { padding: 12px 15px; border-radius: 4px; border: 1px solid #222; background: #111; color: #fff; margin-right: 10px; width: 200px; }
+.vela-input-box button { padding: 12px 25px; background: #dfb76c; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: #000; }
+
+/* Palco do Altar com perspectiva */
+.santuario-velas { 
+    position: relative;
+    width: 100%;
+    height: 480px; 
+    background: radial-gradient(circle at center 85%, rgba(255, 132, 0, 0.22) 0%, transparent 75%); 
+    border-radius: 8px;
+    overflow: hidden; /* Fim absoluto de qualquer barra de rolagem */
+}
+
+/* Camada Dinâmica das velas pequenas */
+#camada-velas-dinamicas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Deixa cliques passarem livremente se necessário */
+}
+
+/* Caixa Absoluta de cada Vela no Altar */
+.vela-box { 
+    position: absolute;
+    text-align: center; 
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: auto;
+}
+.vela-box:hover {
+    transform: scale(1.25) translateY(-5px) !important;
+    z-index: 999999 !important; /* Salta por cima de todas ao passar o mouse */
+}
+
+/* Vela Principal - Fixa na frente e centralizada na base inferior */
+.vela-box-central-fixa {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 50000; /* Garante que está à frente das fileiras traseiras padrão */
+}
+
+/* Rótulos Flutuantes ao passar o mouse */
+.rotulo-vela { 
+    font-size: 0.72rem; 
+    color: #dfb76c; 
+    margin-top: 3px; 
+    opacity: 0; 
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(223, 183, 108, 0.3);
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.vela-box:hover .rotulo-vela { 
+    opacity: 1; 
+}
+
+/* Desenho Físico da Vela Pequena */
+.vela-realista { 
+    position: relative; 
+    width: 26px;  
+    height: 42px; 
+    background-image: url('vela-referencia.png'); 
+    background-size: 100% 100%; 
+    background-position: center bottom; 
+    background-repeat: no-repeat; 
+    margin: 0 auto;
+}
+
+/* Chama Dinâmica Realista */
+.chama-realista { 
+    position: absolute; 
+    bottom: calc(100% - 5px); 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 9px; 
+    height: 22px; 
+    border-radius: 50%; 
+    background: #ffffff; 
+    box-shadow: 0px -2px 4px #ffffff, 0px -4px 8px rgba(255, 213, 0, 0.9), 0px -7px 14px rgba(255, 68, 0, 0.7); 
+    animation: chamaTermica 0.15s infinite alternate; 
+}
+
+/* Customização Física da Vela de Destaque */
+.vela-realista.principal { 
+    width: 85px; 
+    height: 120px; 
+}
+.vela-realista.principal .chama-realista { 
+    width: 22px; 
+    height: 55px; 
+    bottom: calc(100% - 15px); 
+    box-shadow: 0px -4px 8px #ffffff, 0px -8px 22px rgba(255, 213, 0, 0.9), 0px -15px 35px rgba(255, 68, 0, 0.7); 
+}
+.rotulo-vela-fixo {
+    font-size: 0.85rem;
+    color: #dfb76c;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+@keyframes chamaTermica { 
+    0% { transform: translateX(-50%) scaleX(0.92) skewX(-1deg); } 
+    100% { transform: translateX(-48%) scaleX(1.08) skewX(1deg); } 
+}
+
+/* Rodapé e Responsivo */
+footer { background: #222; color: #888; padding: 25px 5%; font-size: 0.9rem; margin-top: 60px; }
+.footer-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+.adm-wrapper { position: relative; }
+#btn-adm-gatilho, #btn-adm-sair { background: transparent; color: #dfb76c; border: 1px solid #dfb76c; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+#box-login-adm { position: absolute; bottom: 45px; right: 0; width: 250px; background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 6px; display: flex; flex-direction: column; gap: 10px; z-index: 500; color: #333; }
+#box-login-adm input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+.box-login-botoes { display: flex; gap: 8px; }
+.btn-logar { flex: 1; background: #333; color: #fff; border: none; padding: 8px; cursor: pointer; }
+.btn-cancelar { background: #eee; color: #555; border: none; padding: 8px; cursor: pointer; }
+
+@media (max-width: 768px) {
+    header, .footer-container { flex-direction: column; text-align: center; gap: 15px; }
+    .info-locais, .bio-container { flex-direction: column; }
+    .foto-bio { margin: 0 auto; }
+    .santuario-velas { height: 420px; }
+}
